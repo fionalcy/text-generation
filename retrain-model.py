@@ -43,7 +43,7 @@ model_reloaded = tf.keras.models.load_model(f"{folder}/{model_name}.keras")
 try:
     model_reloaded = tf.keras.models.load_model(f"{folder}/{model_name}.keras")
     print(f"Successfully load Keras model")
-except NotImplementedError:
+except OSError:
     model_reloaded = keras.models.load_model(f"{folder}/{model_name}")
     print(f"Successfully load 2nd model")
 
