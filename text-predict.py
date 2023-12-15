@@ -116,7 +116,13 @@ for i in range(0, all_epochs, logging_frequency):
     # Text generation
     start = time.time()
     states = None
-    next_char = tf.constant([' '])
+
+    if len(config.seed_text) < 1:
+        seed_text = " "
+    else:
+        seed_text = config.seed_text
+
+    next_char = tf.constant([seed_text])
     result = [next_char]
 
     for n in range(logging_characters):  # number of characters to generate
@@ -139,11 +145,20 @@ for i in range(0, all_epochs, logging_frequency):
 print(model.summary())
 
 # model.save(f"model1", save_format='tf')
-model.save(f"{folder}/{model_name}.keras")
-print(f"Please do not delete the model: {model_name}.keras")
+try:
+    model.save(f"{folder}/{model_name}.keras")
+    print(f"Please do not delete the model: {model_name}.keras")
+except NotImplementedError:
+    model.save(f"{folder}/{model_name}",save_format='tf')
+    print(f"Please do not delete the model: {model_name}")
+
 print(f"If you want to retrain this model: continue with the retrain-model.py")
 
 # Save the one-step model for text generation
-tf.saved_model.save(one_step_model, f'{folder}-ready-{model_name}')
+try:
+    tf.saved_model.save(one_step_model, f'{folder}-ready-{model_name}')
+except Exception as e:
+    print(e, "cannot save one-step model")
+
 print(f"Please do not delete the file /ready-{model_name}")
 print(f"For text generation using the trained model, please run the script text-generate.py")
