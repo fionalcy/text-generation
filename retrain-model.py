@@ -39,7 +39,6 @@ checkpoint = tf.keras.callbacks.ModelCheckpoint(f"{config.folder}/{config.checkp
 
 # Load the pre-trained model for retraining
 model_reloaded = tf.keras.models.load_model(f"{folder}/{model_name}.keras")
-print(type(model_reloaded))
 
 # Define a callback for TensorBoard logging
 log_dir = f"{folder}/logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
