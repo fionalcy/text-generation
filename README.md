@@ -12,7 +12,6 @@ This script is heavily influenced by:
 - [Configuration](#configuration)
 - [Data Preparation](#data-preparation)
 - [Model Training](#model-training)
-- [Text Generation](#text-generation)
 
 ## Getting Started
 
