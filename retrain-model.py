@@ -40,6 +40,14 @@ checkpoint = tf.keras.callbacks.ModelCheckpoint(f"{config.folder}/{config.checkp
 # Load the pre-trained model for retraining
 model_reloaded = tf.keras.models.load_model(f"{folder}/{model_name}.keras")
 
+try:
+    model_reloaded = tf.keras.models.load_model(f"{folder}/{model_name}.keras")
+    print(f"Successfully load Keras model")
+except NotImplementedError:
+    model_reloaded = keras.models.load_model(f"{folder}/{model_name}")
+    print(f"Successfully load 2nd model")
+
+
 # Define a callback for TensorBoard logging
 log_dir = f"{folder}/logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
