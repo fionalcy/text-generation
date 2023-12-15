@@ -56,7 +56,13 @@ for i in range(0, config.retrain_epoch, config.logging_frequency):
     # Text generation
     start = time.time()
     states = None
-    next_char = tf.constant([' '])
+
+    if len(config.seed_text) < 1:
+        seed_text = " "
+    else:
+        seed_text = config.seed_text
+
+    next_char = tf.constant([seed_text])
     result = [next_char]
 
     for n in range(config.characters):  # number of characters to generate
