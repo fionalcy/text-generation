@@ -38,13 +38,13 @@ checkpoint = tf.keras.callbacks.ModelCheckpoint(f"{config.folder}/{config.checkp
                                                 save_weights_only=True)
 
 # Load the pre-trained model for retraining
-model_reloaded = tf.keras.models.load_model(f"{folder}/{model_name}.keras")
+# model_reloaded = tf.keras.models.load_model(f"{folder}/{model_name}.keras")
 
 try:
     model_reloaded = tf.keras.models.load_model(f"{folder}/{model_name}.keras")
     print(f"Successfully load Keras model")
 except OSError:
-    model_reloaded = keras.models.load_model(f"{folder}/{model_name}")
+    model_reloaded = tf.keras.models.load_model(f"{folder}/{model_name}")
     print(f"Successfully load 2nd model")
 
 
