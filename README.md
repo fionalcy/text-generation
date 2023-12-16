@@ -24,7 +24,7 @@ This script is tested on MacOS M2 and Linux Debian 10, as well as the input text
 
 To get started with text generation, follow these steps:
 
-1. Clone this repository to your local machine: git clone https://github.com/fionalcy/text-generation.git
+1. Clone this repository to your local machine: `git clone https://github.com/fionalcy/text-generation.git`
 2. Install the required dependencies. You can use `pip` to install them:
 `pip install -r requirements.txt`
    (This project is based on Python3 and Tensorflow2. If you experience trouble of installing Tensorflow==2.15 as specific in the requirements.txt, Feel free to download any Tensorflow2)
