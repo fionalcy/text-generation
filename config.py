@@ -30,14 +30,14 @@ model = "GRU"  # Choose between GRU and LSTM (Enter 'GRU' or 'LSTM')
 
 # Logging Settings
 logging_frequency = 1  # Frequency of model logging (how often to print model output)
-characters = 250  # Number of characters to output in each logging step
+characters = 100  # Number of characters to output in each logging step
 logging_file = 'gru-output1.txt'  # File for logging the generated text output
 
 # Saved model name (this will be saved in the data folder)
 save_model = "model-test-GRU"
 
 # Retrain Setting (for retrain-model.py only)
-retrain_epoch = 30 # Number of epochs for retraining the model.
+additional_retrain_epoch = 50 # Number of epochs for retraining the model.
 
 # Text Generation Setting
 num_characters_generate = 1000 # Number of characters to generate.

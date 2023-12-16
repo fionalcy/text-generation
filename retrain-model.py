@@ -47,19 +47,21 @@ except OSError:
     model_reloaded = tf.keras.models.load_model(f"{folder}/{model_name}")
     print(f"Successfully load 2nd model")
 
+print(type(model_reloaded))
 
 # Define a callback for TensorBoard logging
 log_dir = f"{folder}/logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
 # Retrain the model for a specified number of epochs with logging frequency
-for i in range(0, config.retrain_epoch, config.logging_frequency):
+for i in range(0, config.additional_retrain_epoch, config.logging_frequency):
     # Fit the model to the dataset for a certain number of epochs
     print(f"This is Epoch {i}")
     history = model_reloaded.fit(dataset, epochs=config.logging_frequency, callbacks=[checkpoint, tensorboard_callback])
 
     # Create a one-step model for generating text
     one_step_model = models.OneStep(model_reloaded, chars_from_ids, ids_from_chars)
+    print(type(one_step_model))
 
     # Text generation
     start = time.time()
@@ -90,11 +92,21 @@ for i in range(0, config.retrain_epoch, config.logging_frequency):
     print('\nRun time:', end - start)
 
 # Path to retrained model
-model_reloaded.save(f"{folder}/{model_name}.keras")
+try:
+    model_reloaded.save(f"{folder}/{model_name}.keras")
+    print(f"Please do not delete the model: {model_name}.keras")
+except NotImplementedError:
+    model_reloaded.save(f"{folder}/{model_name}",save_format='tf')
+    print(f"Please do not delete the model: {model_name}")
+
 print(model_reloaded.summary())
-print(f"Finished Retraining - Epoch {config.retrain_epoch}")
+print(f"Finished Retraining - Epoch {config.additional_retrain_epoch}")
+print(f"If you want to retrain this model: continue with the retrain-model.py")
 
 # Save the one-step model for text generation
-tf.saved_model.save(one_step_model, f'{folder}-ready-{model_name}')
-print(f"Please do not delete the file /ready-{model_name}")
-print(f"For text generation using the trained model, please run the script text-generate.py")
+try:
+    tf.saved_model.save(one_step_model, f'{folder}-ready-{model_name}')
+    print(f"Please do not delete the file /ready-{model_name}")
+    print(f"For text generation using the trained model, please run the script text-generate.py")
+except Exception as e:
+    print(e, "cannot save one-step model")

@@ -3,6 +3,7 @@ import config
 
 # Load the pre-trained model for retraining
 one_step_reloaded = tf.saved_model.load(f'{config.folder}-ready-{config.save_model}')
+print(type(one_step_reloaded))
 
 states = None
 

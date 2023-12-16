@@ -154,11 +154,12 @@ except NotImplementedError:
 
 print(f"If you want to retrain this model: continue with the retrain-model.py")
 
+
 # Save the one-step model for text generation
 try:
     tf.saved_model.save(one_step_model, f'{folder}-ready-{model_name}')
+    print(f"Please do not delete the file /ready-{model_name}")
+    print(f"For text generation using the trained model, please run the script text-generate.py")
 except Exception as e:
     print(e, "cannot save one-step model")
 
-print(f"Please do not delete the file /ready-{model_name}")
-print(f"For text generation using the trained model, please run the script text-generate.py")
