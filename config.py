@@ -32,6 +32,7 @@ model = "GRU"  # Choose between GRU and LSTM (Enter 'GRU' or 'LSTM')
 logging_frequency = 1  # Frequency of model logging (how often to print model output)
 characters = 100  # Number of characters to output in each logging step
 logging_file = 'gru-output1.txt'  # File for logging the generated text output
+logging_loss = "training_metrics_v1.csv"
 
 # Saved model name (this will be saved in the data folder)
 save_model = "model-test-GRU"
