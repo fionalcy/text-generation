@@ -2,10 +2,17 @@
 
 Text Generation with TensorFlow is a project that uses deep learning techniques to generate text sequences. This project leverages TensorFlow, a popular deep learning framework, and provides the ability to train models on input text data and generate creative text based on the learned patterns.
 
+The project contains three major parts: 
+
+1. text training based on your input text, and it will save the model for future text generation and retraining the model.
+2. text retraining to continue the training processes.
+3. text generation based on the trained model.
+
 This script is heavily influenced by: 
 - https://github.com/gsurma/text_predictor/ 
 - https://www.tensorflow.org/text/tutorials/text_generation
 
+This script is tested on MacOS M2 and Linux Debian 10, as well as the input text in English and Traditional Chinese characters.
 
 ## Table of Contents
 - [Getting Started](#getting-started)
@@ -17,15 +24,12 @@ This script is heavily influenced by:
 
 To get started with text generation, follow these steps:
 
-1. Clone this repository to your local machine: git clone https://git.arts.ac.uk/22045067/text-generation.git
+1. Clone this repository to your local machine: `git clone https://github.com/fionalcy/text-generation.git`
 2. Install the required dependencies. You can use `pip` to install them:
 `pip install -r requirements.txt`
-   (This project is based on Python3 Tensorflow2. If you experience trouble of installing Tensorflow==2.15 as specific in the requirements.txt. 
-   Feel free to download any Tensorflow2)
-
+   (This project is based on Python3 and Tensorflow2. If you experience trouble of installing Tensorflow==2.15 as specific in the requirements.txt, Feel free to download any Tensorflow2)
 3. Prepare your input text data (.txt). Create a text file and specify the folder and file path in the configuration.
 4. Customize the model and training settings in the `config.py` file according to your preferences.
-
 5. Run the text predict script:
 `python3 text-predict.py` or `python text-predict.py` depends on your python setting
     This script encompasses functionalities such as word counting, dataset preparation, training text generation models, and generating text based on trained models.
@@ -80,7 +84,6 @@ In the `config.py` file, you can configure various settings for your text genera
 - `seed_text`: " " Seed text for text generation (can be any text, at least a space).
 - `text_generate_output`: Name of the output file for generated text.
 
-
 ## Data Preparation
 
 Text data should be prepared in a plain text file. The project uses TensorFlow to preprocess the data, including converting characters to numerical IDs and creating datasets for training.
@@ -92,5 +95,5 @@ The project trains a custom-defined text generation model using TensorFlow. The 
 - Model Select - GRU: https://www.tensorflow.org/api_docs/python/tf/keras/layers/GRU
 - Model Select - LSTM:https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTM
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## License/Info
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details, and it is supported by siusoon foundation
