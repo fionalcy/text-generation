@@ -1,4 +1,6 @@
 import tensorflow as tf
+import matplotlib.pyplot as plt
+import pandas as pd
 import os
 import sys
 import time
@@ -101,6 +103,12 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     filepath=checkpoint_prefix,
     save_weights_only=True)
 
+# Callback to log model training loss during training
+csv_file_path = f"{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}_{config.logging_loss}"
+print(f"Logger Path:{os.path.join(config.folder, csv_file_path)}")
+logger_path = os.path.join(config.folder, csv_file_path)
+csv_logger = tf.keras.callbacks.CSVLogger(logger_path, append=True)
+
 # Callback for the Tensorboard
 log_dir = f"{folder}/logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
@@ -109,7 +117,7 @@ tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram
 for i in range(0, all_epochs, logging_frequency):
     # Fit the model to the dataset for a certain number of epochs
     print(f"This is Epoch {i}")
-    history = model.fit(dataset, epochs=logging_frequency, callbacks=[checkpoint_callback, tensorboard_callback])
+    history = model.fit(dataset, epochs=logging_frequency, callbacks=[checkpoint_callback, tensorboard_callback, csv_logger])
     # Create a one-step model for generating text
     one_step_model = models.OneStep(model, chars_from_ids, ids_from_chars)
 
@@ -144,7 +152,6 @@ for i in range(0, all_epochs, logging_frequency):
 # Print model summary
 print(model.summary())
 
-# model.save(f"model1", save_format='tf')
 try:
     model.save(f"{folder}/{model_name}.keras")
     print(f"Please do not delete the model: {model_name}.keras")
@@ -162,4 +169,13 @@ try:
     print(f"For text generation using the trained model, please run the script text-generate.py")
 except Exception as e:
     print(e, "cannot save one-step model")
+
+# Save training loss to image
+df = pd.read_csv(os.path.join(config.folder, csv_file_path))
+df[['loss']].plot()
+plt.xlabel('epochs')
+plt.title('Training loss')
+image_path = os.path.join(config.folder, f'{csv_file_path.split(".")[-2]}.png')
+plt.savefig(image_path)
+print(f"Training loss is save at {image_path}")
 
