@@ -111,7 +111,7 @@ csv_logger = tf.keras.callbacks.CSVLogger(logger_path, append=True)
 
 # Callback for the Tensorboard
 log_dir = f"{folder}/logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1, update_freq=1)
 
 # Training Loop
 for i in range(0, all_epochs, logging_frequency):
