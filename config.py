@@ -2,7 +2,7 @@
 folder = "text" # Directory where input files, output files, models, and TensorFlow board logs will be saved.
 
 # Script Settings
-input_file = 'text3.txt'  # Path to the input text file
+input_file = 'sample-text3.txt'  # Path to the input text file
 preview = 250  # Number of characters to preview from the input text (set to 0 for no preview)
 
 # Wordcount Settings
@@ -18,7 +18,7 @@ buffer_size = 10000  # Buffer size for shuffling the dataset (should be greater 
 
 # Initial Model Training Settings (for text-predict.py)
 embedding_dim = 256  # Number of embedding dimensions
-epochs = 10  # Number of training epochs
+epochs = 50  # Number of training epochs
 checkpoint_folder = f"gru-training_checkpoints_v1"  # Directory for saving model checkpoints
 
 # Model Selection
