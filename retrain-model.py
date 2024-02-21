@@ -62,34 +62,34 @@ for i in range(0, config.additional_retrain_epoch, config.logging_frequency):
     # Create a one-step model for generating text
     one_step_model = models.OneStep(model_reloaded, chars_from_ids, ids_from_chars)
     print(type(one_step_model))
-
-    # Text generation
-    start = time.time()
-    states = None
-
-    if len(config.seed_text) < 1:
-        seed_text = " "
-    else:
-        seed_text = config.seed_text
-
-    next_char = tf.constant([seed_text])
-    result = [next_char]
-
-    for n in range(config.characters):  # number of characters to generate
-        next_char, states = one_step_model.generate_one_step(next_char, states=states)
-        result.append(next_char)
-
-    result = tf.strings.join(result)
-    end = time.time()
-
-    # Print generated text and save it to the output file
-    print(result[0].numpy().decode('utf-8'), '\n\n' + '_' * 80)
-    with open(f"{folder}/{config.logging_file}", 'a') as f:
-        f.write(f"Epoch: {i}\n")
-        f.write(result[0].numpy().decode('utf-8'))
-        f.write('\n\n')
-
-    print('\nRun time:', end - start)
+    #
+    # # Text generation
+    # start = time.time()
+    # states = None
+    #
+    # if len(config.seed_text) < 1:
+    #     seed_text = " "
+    # else:
+    #     seed_text = config.seed_text
+    #
+    # next_char = tf.constant([seed_text])
+    # result = [next_char]
+    #
+    # for n in range(config.characters):  # number of characters to generate
+    #     next_char, states = one_step_model.generate_one_step(next_char, states=states)
+    #     result.append(next_char)
+    #
+    # result = tf.strings.join(result)
+    # end = time.time()
+    #
+    # # Print generated text and save it to the output file
+    # print(result[0].numpy().decode('utf-8'), '\n\n' + '_' * 80)
+    # with open(f"{folder}/{config.logging_file}", 'a') as f:
+    #     f.write(f"Epoch: {i}\n")
+    #     f.write(result[0].numpy().decode('utf-8'))
+    #     f.write('\n\n')
+    #
+    # print('\nRun time:', end - start)
 
 # Path to retrained model
 try:
